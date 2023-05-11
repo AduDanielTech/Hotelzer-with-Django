@@ -1,6 +1,7 @@
 import os
 from django.shortcuts import redirect, render
 from .models import Destination,QuickBooking,Booking
+from django.contrib.auth.models import auth
 from django.contrib import messages
 # Create your views here.
 def index(request):
@@ -16,7 +17,16 @@ def booking(request):
             messages.ERROR(request, 'Failed to book you room ')
             return redirect('booking')
     else:
-        return render(request, 'booking.html')
+        if request.user.is_authenticated:
+            return render(request, 'booking.html')
+        else:
+            return  redirect('accounts/login')
+
+        
+    
+
+def about(request):
+    return render(request, 'about.html')
     
 
 """name = request.POST['name']
