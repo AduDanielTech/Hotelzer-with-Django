@@ -1,5 +1,7 @@
 import os
 from django.shortcuts import redirect, render
+
+from hotel.forms import QuickBookingForm
 from .models import Destination,QuickBooking,Booking
 from django.contrib.auth.models import auth
 from django.contrib import messages
@@ -11,7 +13,16 @@ def index(request):
 def booking(request):
     if request.method == 'POST':
         try:
-            messages.info(request, 'Booked Sucessfully')
+            try:
+                form = QuickBookingForm(request.POST)
+                if form.is_valid():
+                    form.save()
+                else:
+                    messages.error(request, 'Booking failed')
+                print(request.POST)
+                messages.info(request, 'Booked Sucessfully')
+            except:
+                messages.error(request, 'Booking failed')
             return redirect('booking')
         except :
             messages.ERROR(request, 'Failed to book you room ')
@@ -22,8 +33,7 @@ def booking(request):
         else:
             return  redirect('accounts/login')
 
-        
-    
+
 
 def about(request):
     return render(request, 'about.html')

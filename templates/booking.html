@@ -133,34 +133,41 @@
         <!-- Booking Start -->
         <div class="container-fluid booking pb-5 wow fadeIn" data-wow-delay="0.1s">
             <div class="container">
-                <form  class="bg-white shadow" style="padding: 35px;">
+                <form method="post" action="{% url 'booking' %}" enctype="multipart/form-data" class="bg-white shadow" style="padding: 35px;">
+                    {% csrf_token %}
                     <div class="row g-2">
                         <div class="col-md-10" >
                             <div class="row g-2">
                                 <div class="col-md-3">
-                                    <div class="date" id="date1" data-target-input="nearest">
+                                    <div class="form-floating date" id="date1" data-target-input="nearest">
                                         <input
                                          {% if user.is_authenticated == False %}
                                          disabled
                                          {% endif %}
-                                        type="text" class="form-control datetimepicker-input"
+                                        type="datetime-local" class="form-control datetimepicker-input" name="checkin" id="id_checkin"
                                             placeholder="Check in" data-target="#date1" data-toggle="datetimepicker" />
+                                            <label for="checkout">Check in</label>
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="col-md-3">
-                                    <div class="date" id="date2" data-target-input="nearest">
+                                    <div class="form-floating date" id="date2" data-target-input="nearest">
                                         <input
+                                        name="checkout"
+                                        id="id_checkout"
                                          {% if user.is_authenticated == False  %}
                                          disabled
                                          {% endif %}
-                                        type="text" class="form-control datetimepicker-input" placeholder="Check out" data-target="#date2" data-toggle="datetimepicker"/>
-                                    </div>
+                                        type="datetime-local" class="form-control datetimepicker-input" placeholder="Check out" data-target="#date2" data-toggle="datetimepicker"/>
+                                        <label for="checkout">Check Out</label>
                                 </div>
                                 <div class="col-md-3">
                                     <select 
+                                    name="adult_no"
                                     {% if user.is_authenticated == False %}
                                          disabled
                                          {% endif %}
+                                         id="id_adult_no"
                                     class="form-select">
                                         <option selected>Adult</option>
                                         <option value="1">Adult 1</option>
@@ -170,6 +177,8 @@
                                 </div>
                                 <div class="col-md-3">
                                     <select 
+                                    name="child_no"
+                                    id="id_child_no"
                                     {% if user.is_authenticated == False %}
                                          disabled
                                          {% endif %}
