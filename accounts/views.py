@@ -27,7 +27,6 @@ def register(request):
         else:
             messages.info(request, 'password not matching')
             return redirect('register')
-
     else:
         return render(request, 'register.html')
  
@@ -44,7 +43,7 @@ def login(request):
         else:
             messages.info(request, 'invalid credentials')
             return redirect('login')
-    else:   
+    if request.method == 'GET':
         return render(request, 'login.html')
         
 def logout(request):

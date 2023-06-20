@@ -39,6 +39,16 @@ def about(request):
     return render(request, 'about.html')
     
 
+def services(request):
+    return render(request, 'service.html')
+
+def room(request):
+    return render(request, 'room.html')
+    
+def contact(request):
+    return render(request, 'contact.html')
+    
+
 """name = request.POST['name']
             email = request.POST['email']
             checkINTime = request.POST['"check_in_dat']
